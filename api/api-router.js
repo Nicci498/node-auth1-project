@@ -26,6 +26,8 @@ router.post('/register', (req, res) =>{
 
 router.post('/login', (req, res) =>{
     let { username, password } = req.body;
+    console.log(username)
+    console.log(password)
     Users.findBy({username})
     .first()
     .then(user =>{
@@ -35,7 +37,7 @@ router.post('/login', (req, res) =>{
             res.status(401).json({message: 'Invalid Credentials'})
         }
     })
-    .catch(err =>{res.status(500).json({message:'fail'})})
+    .catch(({ name, message ,stack}) =>{res.status(500).json({name, message, stack})})
 })
 
 module.exports = router;
